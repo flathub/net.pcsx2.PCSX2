@@ -1,0 +1,162 @@
+{
+    "app-id": "net.pcsx2.PCSX2",
+    "runtime": "org.freedesktop.Platform",
+    "sdk": "org.freedesktop.Sdk",
+    "runtime-version": "1.6",
+    "command": "PCSX2",
+    "rename-desktop-file": "PCSX2.desktop",
+    "rename-icon": "PCSX2",
+    "finish-args": [
+        "--device=dri",
+        "--share=ipc",
+        "--socket=x11",
+        "--socket=pulseaudio",
+        "--filesystem=home:ro"
+    ],
+    "modules": [
+      {
+          "name": "wxWidgets",
+          "cleanup": [
+              "/bin",
+              "/include",
+              "/share/bakefile",
+              "/share/aclocal",
+              "/lib/wx/include"
+          ],
+          "config-opts": [
+              "--with-opengl",
+              "--with-libjpeg",
+              "--with-libpng",
+              "--with-zlib",
+              "--disable-sdltest",
+              "--enable-unicode",
+              "--enable-display",
+              "--enable-propgrid",
+              "--disable-webkit",
+              "--disable-webview",
+              "--disable-webviewwebkit",
+              "--with-expat=builtin",
+              "--with-libiconv=/usr"
+          ],
+          "build-options" : {
+              "cxxflags":"-std=c++0x"
+          },
+          "sources": [ 
+            {  
+                "type": "archive", 
+                "url": "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.3.1/wxWidgets-3.0.3.1.tar.bz2",
+                "sha256":"3164ad6bc5f61c48d2185b39065ddbe44283eb834a5f62beb13f1d0923e366e4" 
+            }
+          ],
+          "modules": [
+              "shared-modules/glu/glu-9.0.0.json"
+          ]
+        },
+        {
+            "name": "libaio",
+            "cleanup": [ "/include", "/lib/*.a" ],
+            "buildsystem": "simple",
+            "build-commands": [
+                "make",
+                "make prefix=/app install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://ftp.de.debian.org/debian/pool/main/liba/libaio/libaio_0.3.110.orig.tar.gz",
+                    "sha256": "e019028e631725729376250e32b473012f7cb68e1f7275bfc1bbcdd0f8745f7e"
+                }
+            ]
+        },
+        {
+          "name": "portaudio",
+          "cleanup": [ "/include", "/lib/pkgconfig", "/lib/*.la" ],
+          "config-opts": [ "--disable-static" ],
+          "sources": [
+              {
+                  "type": "archive",
+                  "url": "http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz",
+                  "sha256": "f5a21d7dcd6ee84397446fa1fa1a0675bb2e8a4a6dceb4305a8404698d8d1513"
+              }
+          ]
+        },
+        {
+            "name": "soundtouch",
+            "config-opts": [
+                "--disable-static"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.surina.net/soundtouch/soundtouch-1.9.2.tar.gz",
+                    "sha256": "caeb86511e81420eeb454cb5db53f56d96b8451d37d89af6e55b12eb4da1c513"
+                }
+            ],
+            "cleanup": [
+                "/bin",
+                "/include",
+                "/lib/pkgconfig",
+                "/share/aclocal",
+                "/share/doc",
+                "/lib/*.la"
+            ]
+        },
+        {
+          "name": "png++",
+          "disabled": true,
+          "buildsystem": "simple",
+          "build-commands": [
+            "make",
+            "make prefix=/app install"
+          ],
+          "sources": [
+              {
+                "type": "archive",
+                "url": "https://download.savannah.nongnu.org/releases/pngpp/png++-0.2.9.tar.gz",
+                "sha256": "abbc6a0565122b6c402d61743451830b4faee6ece454601c5711e1c1b4238791"
+              }
+          ]
+        },
+        {
+            "name": "pcsx2",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DGTK3_API=TRUE",
+                "-DPACKAGE_MODE=TRUE",
+                "-DXDG_STD=TRUE",
+                "-DDISABLE_BUILD_DATE=TRUE",
+                "-DDISABLE_PCSX2_WRAPPER=TRUE"
+            ],
+            "cleanup": [
+                "/share/pixmaps",
+                "/share/man",
+                "/share/doc"
+            ],
+            "post-install": [
+                "sed -i s/Exec=.*/Exec=PCSX2/ /app/share/applications/PCSX2.desktop",
+                "install -Dm644 pcsx2/gui/Resources/AppIcon64.png /app/share/icons/hicolor/64x64/apps/PCSX2.png",
+                "install -Dm644 net.pcsx2.PCSX2.appdata.xml /app/share/appdata/net.pcsx2.PCSX2.appdata.xml"
+            ],
+            "sources": [
+              {
+                "type": "archive",
+                "url": "https://github.com/PCSX2/pcsx2/archive/v1.4.0.tar.gz",
+                "sha256": "2c8a986e2b6514d7018f6cfd39c4f2a72229b9b4ab06ca6b1d3466dfd9c33005"
+              },
+              {
+                  "type": "patch",
+                  "path": "21012a8ec368d3e88a5f3d00030d061e21fcc9a7.patch"
+              },
+              {
+                  "type": "patch",
+                  "path": "2c74ff1e543ec3bcffcb359100969a2aba4d7bdd.patch"
+              },
+              {
+                  "type": "file",
+                  "path": "net.pcsx2.PCSX2.appdata.xml"
+              }
+            ]
+        }
+    ]
+}
