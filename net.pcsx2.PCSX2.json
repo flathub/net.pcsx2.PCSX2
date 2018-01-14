@@ -7,7 +7,7 @@
     "rename-desktop-file": "PCSX2.desktop",
     "rename-icon": "PCSX2",
     "finish-args": [
-        "--device=dri",
+        "--device=all",
         "--share=ipc",
         "--socket=x11",
         "--socket=pulseaudio",
