@@ -126,7 +126,8 @@
                 "-DPACKAGE_MODE=TRUE",
                 "-DXDG_STD=TRUE",
                 "-DDISABLE_BUILD_DATE=TRUE",
-                "-DDISABLE_PCSX2_WRAPPER=TRUE"
+                "-DDISABLE_PCSX2_WRAPPER=TRUE",
+                "-DDISABLE_ADVANCE_SIMD=TRUE"
             ],
             "cleanup": [
                 "/share/pixmaps",
