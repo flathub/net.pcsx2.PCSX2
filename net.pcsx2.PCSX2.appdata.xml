@@ -4,6 +4,12 @@
   <launchable type="desktop-id">net.pcsx2.PCSX2.desktop</launchable>
   <name>PCSX2</name>
   <summary>A Playstation 2 emulator</summary>
+  <summary xml:lang="pt_BR">Emulador de Playstation 2</summary>
+  <summary xml:lang="es">Emulador de Playstation 2</summary>
+  <description><p>PCSX2 lets you play Playstation 2 games on your computer.</p>
+  <description xml:lang="pt_BR"><p>O PCSX2 permite jogar jogos de Playstation 2 no seu Computador.</p>
+  <description xml:lang="es"><p>PCSX2 le permite jugar juegos de Playstation 2 en su ordenador.</p>
+  <description>
   <categories>
     <category>Game</category>
     <category>Emulator</category>
