@@ -2,7 +2,7 @@
     "app-id": "net.pcsx2.PCSX2",
     "runtime": "org.freedesktop.Platform",
     "sdk": "org.freedesktop.Sdk",
-    "runtime-version": "1.6",
+    "runtime-version": "18.08",
     "command": "PCSX2",
     "rename-desktop-file": "PCSX2.desktop",
     "rename-icon": "PCSX2",
@@ -44,8 +44,8 @@
           "sources": [ 
             {  
                 "type": "archive", 
-                "url": "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.3.1/wxWidgets-3.0.3.1.tar.bz2",
-                "sha256":"3164ad6bc5f61c48d2185b39065ddbe44283eb834a5f62beb13f1d0923e366e4" 
+                "url": "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2",
+                "sha256":"96157f988d261b7368e5340afa1a0cad943768f35929c22841f62c25b17bf7f0"
             }
           ],
           "modules": [
