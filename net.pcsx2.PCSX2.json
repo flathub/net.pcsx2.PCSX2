@@ -54,17 +54,23 @@
         },
         {
             "name": "libaio",
+            "no-autogen": true,
+            "make-install-args": ["prefix=/app"],
             "cleanup": [ "/include", "/lib/*.a" ],
-            "buildsystem": "simple",
-            "build-commands": [
-                "make",
-                "make prefix=/app install"
-            ],
             "sources": [
                 {
                     "type": "archive",
                     "url": "http://ftp.de.debian.org/debian/pool/main/liba/libaio/libaio_0.3.110.orig.tar.gz",
                     "sha256": "e019028e631725729376250e32b473012f7cb68e1f7275bfc1bbcdd0f8745f7e"
+                },
+                {
+                    "type": "patch",
+                    "paths": [
+                        "link-libs.patch",
+                        "fix-install-dirs.patch",
+                        "no-werror.patch",
+                        "fix-build-flags.patch"
+                    ]
                 }
             ]
         },
@@ -127,7 +133,8 @@
                 "-DXDG_STD=TRUE",
                 "-DDISABLE_BUILD_DATE=TRUE",
                 "-DDISABLE_PCSX2_WRAPPER=TRUE",
-                "-DDISABLE_ADVANCE_SIMD=TRUE"
+                "-DDISABLE_ADVANCE_SIMD=TRUE",
+                "-DOpenGL_GL_PREFERENCE=GLVND"
             ],
             "cleanup": [
                 "/share/pixmaps",
