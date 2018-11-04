@@ -123,6 +123,7 @@
               }
           ]
         },
+        "shared-modules/udev/udev-175.json",
         {
             "name": "pcsx2",
             "buildsystem": "cmake-ninja",
@@ -142,23 +143,15 @@
                 "/share/doc"
             ],
             "post-install": [
-                "sed -i s/Exec=.*/Exec=PCSX2/ /app/share/applications/PCSX2.desktop",
+                "desktop-file-edit --set-key=Exec --set-value=PCSX2 /app/share/applications/PCSX2.desktop",
                 "install -Dm644 pcsx2/gui/Resources/AppIcon64.png /app/share/icons/hicolor/64x64/apps/PCSX2.png",
                 "install -Dm644 net.pcsx2.PCSX2.appdata.xml /app/share/appdata/net.pcsx2.PCSX2.appdata.xml"
             ],
             "sources": [
               {
-                "type": "archive",
-                "url": "https://github.com/PCSX2/pcsx2/archive/v1.4.0.tar.gz",
-                "sha256": "2c8a986e2b6514d7018f6cfd39c4f2a72229b9b4ab06ca6b1d3466dfd9c33005"
-              },
-              {
-                  "type": "patch",
-                  "path": "21012a8ec368d3e88a5f3d00030d061e21fcc9a7.patch"
-              },
-              {
-                  "type": "patch",
-                  "path": "2c74ff1e543ec3bcffcb359100969a2aba4d7bdd.patch"
+                "type": "git",
+                "url": "https://github.com/PCSX2/pcsx2.git",
+                "commit": "77a924ee7d5df865b90369ad62da50c249fe0387"
               },
               {
                   "type": "file",
