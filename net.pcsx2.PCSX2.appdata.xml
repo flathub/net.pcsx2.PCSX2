@@ -8,9 +8,11 @@
   <name>PCSX2</name>
   <developer_name>PCSX2</developer_name>
   <summary>A Playstation 2 emulator</summary>
+  <summary xml:lang="pt_BR">Emulador de Playstation 2</summary>
+  <summary xml:lang="es">Emulador de Playstation 2</summary>
   <description>
     <p>PCSX2 is a Playstation 2 'emulator', a free program that tries to replicate the Playstation 2 console to enable you to play PS2 games on your PC.</p>
-    <p>Advantages over the Playstation 2 console:</p>
+    <p>The advantages of using PCSX2:</p>
     <ul>
       <li>Custom resolutions, up to 4096x4096, Anti Aliasing, and Texture filtering</li>
       <li>Unlimited memory cards</li>
@@ -21,8 +23,34 @@
       <li>Ability to record in full HD with the built-in video recorder (F12 using the GSdx plugin)</li>
     </ul>
   </description>
-  <url type="homepage">https://pcsx2.net/</url>
-  <url type="bugtracker">https://github.com/PCSX2/pcsx2/issues?</url>
+  <description xml:lang="pt_BR">
+    <p>PCSX2 permite jogar jogos de PlayStation 2 no seu Computador.</p>
+    <p>As vantagens de usar PCSX2:</p>
+    <ul>
+      <li>Resoluções personalizadas, até 4096x4096, anti-aliasing e filtragem de texturas</li>
+      <li>Cartões de memória ilimitados</li>
+      <li>Salvar estados, permitindo que você salve e carregue rapidamente praticamente em qualquer lugar do seu jogo</li>
+      <li>Fraude fácil usando nosso sistema de patch pnach</li>
+      <li>Use qualquer controlador ou teclado e mouse</li>
+      <li>Aumentar ou diminuir a velocidade do jogo usando o limitador de quadros incorporado</li>
+      <li>Capacidade de gravar em full HD com o gravador de vídeo embutido (F12 usando o plugin GSdx)</li>
+     </ul>
+  </description>
+  <description xml:lang="es">
+    <p>PCSX2 le permite jugar juegos de PlayStation 2 en su ordenador.</p>
+    <p>Las ventajas de utilizar PCSX2:</p>
+    <Ul>
+      <li>Resoluciones personalizadas, hasta 4096x4096, anti-aliasing y filtrado de texturas</li>
+      <li>Tarjetas de memoria ilimitadas</li>
+      <li>Guardar estados, permitiendo que usted salve y cargue rápidamente prácticamente en cualquier lugar de su juego</li>
+      <li>Fraude fácil usando nuestro sistema de patch pnach</li>
+      <li>Utilice cualquier controlador o teclado y ratón</li>
+      <li>Aumentar o disminuir la velocidad del juego mediante el limitador de fotogramas incorporado</li>
+      <li>Capacidad de grabar en full HD con el grabador de vídeo incorporado (F12 usando el plugin GSdx)</li>
+     </Ul>
+    </description>
+  <url type="homepage">https://pcsx2.net</url>
+  <url type="bugtracker">https://github.com/PCSX2/pcsx2/issues</url>
   <releases>
     <release date="2018-11-04" version="1.5.0-dev"/>
   </releases>
