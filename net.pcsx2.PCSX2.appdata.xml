@@ -10,6 +10,9 @@
   <summary>A Playstation 2 emulator</summary>
   <summary xml:lang="pt_BR">Emulador de Playstation 2</summary>
   <summary xml:lang="es">Emulador de Playstation 2</summary>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/LeandroStanger/net.pcsx2.PCSX2/patch-1/PCSX2.png</image>
+    </screenshot>
   <description>
     <p>PCSX2 is a Playstation 2 'emulator', a free program that tries to replicate the Playstation 2 console to enable you to play PS2 games on your PC.</p>
     <p>The advantages of using PCSX2:</p>
