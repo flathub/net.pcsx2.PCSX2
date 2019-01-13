@@ -151,7 +151,7 @@
               {
                 "type": "git",
                 "url": "https://github.com/PCSX2/pcsx2.git",
-                "commit": "77a924ee7d5df865b90369ad62da50c249fe0387"
+                "commit": "3a7f2a5c0b12362feb958dfbb207f4a5a15d2dfe"
               },
               {
                   "type": "file",
