@@ -64,7 +64,7 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "http://ftp.de.debian.org/debian/pool/main/liba/libaio/libaio_0.3.110.orig.tar.gz",
+                    "url": "https://deb.debian.org/debian/pool/main/liba/libaio/libaio_0.3.110.orig.tar.gz",
                     "sha256": "e019028e631725729376250e32b473012f7cb68e1f7275bfc1bbcdd0f8745f7e"
                 },
                 {
@@ -155,7 +155,7 @@
               {
                 "type": "git",
                 "url": "https://github.com/PCSX2/pcsx2.git",
-                "commit": "3a7f2a5c0b12362feb958dfbb207f4a5a15d2dfe"
+                "commit": "9a5225dfdf77eaf2021a2ee5c576b1a028202c66"
               },
               {
                   "type": "file",
