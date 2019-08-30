@@ -26,5 +26,12 @@
   <releases>
     <release date="2019-08-30" version="1.5.0-dev"/>
   </releases>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://i.imgur.com/peA81HT.png</image>
+      <caption>Main Window</caption>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
   <update_contact>tingping_at_tingping.se</update_contact>
 </component>
