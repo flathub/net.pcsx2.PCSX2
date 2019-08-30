@@ -139,6 +139,7 @@
                 "-DDISABLE_BUILD_DATE=TRUE",
                 "-DDISABLE_PCSX2_WRAPPER=TRUE",
                 "-DDISABLE_ADVANCE_SIMD=TRUE",
+                "-DDISABLE_DEV9GHZDRK=TRUE",
                 "-DOpenGL_GL_PREFERENCE=GLVND"
             ],
             "cleanup": [
@@ -155,14 +156,7 @@
               {
                 "type": "git",
                 "url": "https://github.com/PCSX2/pcsx2.git",
-                "commit": "d77d440a048cb625d664ac5b13b92b847783b1f6"
-              },
-              {
-                "type": "shell",
-                "//": "No option to disable the dev9ghzdrk feature? So lets just ignore the error when skipped.",
-                "commands": [
-                  "sed -i 's/print_dep(\"Skip build of dev9ghzdrk: missing dependencies\" \"${msg_dep_dev}\")//' cmake/SelectPcsx2Plugins.cmake"
-                ]
+                "commit": "74e6c437f2cb1e3303fe71237f0ccb257853d804"
               },
               {
                   "type": "file",
