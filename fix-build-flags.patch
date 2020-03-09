@@ -15,21 +15,24 @@ Last-Update: 2014-10-09
 
 --- a/harness/Makefile
 +++ b/harness/Makefile
-@@ -6,13 +6,16 @@ PROGS:=$(PARTPROGS) $(EXTRAPROGS)
+@@ -6,8 +6,11 @@ PROGS:=$(PARTPROGS) $(EXTRAPROGS)
  HARNESS_SRCS:=main.c
  # io_queue.c
  
--CFLAGS+=-Wall -I../src -g -O
-+MK_CPPFLAGS:=-I../src
-+CFLAGS=-Wall -g -O
+-CFLAGS+=-Wall -Werror -I../src -g -O2 -DPAGE_SIZE=$(shell getconf PAGESIZE)
++MK_CPPFLAGS := -I../src $(CPPFLAGS)
++CFLAGS = -Wall -I../src -g -O2 -DPAGE_SIZE=$(shell getconf PAGESIZE) -fno-stack-protector
  #-lpthread -lrt
-+MK_CFLAGS=$(CFLAGS)
-+MK_LDFLAGS=main.c ../src/libaio.a $(LDFLAGS)
++MK_CFLAGS = $(CFLAGS)
++MK_LDFLAGS = main.c $(LIBAIO) -lpthread $(LDFLAGS)
  
+ # Change this on the build line to run tests against the installed libraries:
+ # make LIBAIO=-laio partcheck
+@@ -16,7 +19,7 @@ LIBAIO?=../src/libaio.a
  all: $(PROGS)
  
  $(PROGS): %.p: %.t $(HARNESS_SRCS)
--	$(CC) $(CFLAGS) -DTEST_NAME=\"$<\" -o $@ main.c ../src/libaio.a
+-	$(CC) $(CFLAGS) -DTEST_NAME=\"$<\" -o $@ main.c ../src/libaio.a -lpthread
 +	$(CC) $(MK_CPPFLAGS) $(MK_CFLAGS) -DTEST_NAME=\"$<\" -o $@ $(MK_LDFLAGS)
  
  clean:
@@ -37,8 +40,8 @@ Last-Update: 2014-10-09
 --- a/src/Makefile
 +++ b/src/Makefile
 @@ -4,12 +4,12 @@ includedir=$(prefix)/include
- libdir=$(prefix)/lib
- libdevdir=$(prefix)/lib
+ libdir=$(prefix)/lib32
+ libdevdir=$(libdir)
  
 -CFLAGS ?= -g -fomit-frame-pointer -O2
 -CFLAGS += -nostdlib -nostartfiles -Wall -I. -fPIC
@@ -46,16 +49,16 @@ Last-Update: 2014-10-09
 -L_CFLAGS=$(CFLAGS)
 -LINK_FLAGS=-Wl,--as-needed -lgcc -lc
 -LINK_FLAGS+=$(LDFLAGS)
-+MK_CPPFLAGS=-I.
-+MK_CFLAGS=-nostdlib -nostartfiles -fomit-frame-pointer -fPIC $(CFLAGS)
-+CFLAGS=-Wall -g -O2
-+SO_CFLAGS=-shared $(MK_CFLAGS)
-+L_CFLAGS=$(MK_CFLAGS)
-+MK_LDFLAGS=-Wl,--as-needed -lgcc -lc $(LDFLAGS)
++MK_CPPFLAGS = -I.
++MK_CFLAGS = -fPIC $(CFLAGS)
++CFLAGS = -nostdlib -nostartfiles -Wall -g -fomit-frame-pointer -O2 -fno-stack-protector
++SO_CFLAGS = -shared $(MK_CFLAGS)
++L_CFLAGS = $(MK_CFLAGS)
++MK_LDFLAGS = $(LDFLAGS)
+ ENABLE_SHARED ?= 1
  
  soname=libaio.so.1
- minor=0
-@@ -39,10 +39,10 @@ libaio_sobjs := $(patsubst %.c,%.os,$(li
+@@ -44,10 +44,10 @@ libaio_sobjs := $(patsubst %.c,%.os,$(li
  $(libaio_objs) $(libaio_sobjs): libaio.h vsys_def.h
  
  %.os: %.c
@@ -68,7 +71,7 @@ Last-Update: 2014-10-09
  
  AR ?= ar
  RANLIB ?= ranlib
-@@ -52,7 +52,7 @@ libaio.a: $(libaio_objs)
+@@ -57,7 +57,7 @@ libaio.a: $(libaio_objs)
  	$(RANLIB) libaio.a
  
  $(libname): $(libaio_sobjs) libaio.map

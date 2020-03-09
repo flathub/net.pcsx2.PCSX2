@@ -6,35 +6,37 @@ Last-Update: 2007-09-11
 
 
 ---
- Makefile     |    9 ++++++++-
+ Makefile     |   10 +++++++++-
  src/Makefile |   12 +++++++-----
- 2 files changed, 15 insertions(+), 6 deletions(-)
+ 2 files changed, 16 insertions(+), 6 deletions(-)
 
 --- a/Makefile
 +++ b/Makefile
-@@ -5,9 +5,11 @@ RELEASE=$(shell awk '/Release:/ { print
- CVSTAG = $(NAME)_$(subst .,-,$(VERSION))_$(subst .,-,$(RELEASE))
+@@ -4,9 +4,11 @@ VERSION=$(shell awk '/Version:/ { print
+ TAG = $(NAME)-$(VERSION)
  RPMBUILD=$(shell `which rpmbuild >&/dev/null` && echo "rpmbuild" || echo "rpm")
  
 +DESTDIR=
  prefix=/usr
  includedir=$(prefix)/include
- libdir=$(prefix)/lib
-+libdevdir=$(prefix)/lib
+-libdir=$(prefix)/lib
++libdir=$(prefix)/lib32
++libdevdir=$(libdir)
  
  default: all
  
-@@ -15,7 +17,12 @@ all:
+@@ -14,7 +16,13 @@ all:
  	@$(MAKE) -C src
  
  install:
--	@$(MAKE) -C src install prefix=$(prefix) includedir=$(includedir) libdir=$(libdir)
+-	@$(MAKE) -C src install prefix=$(DESTDIR)$(prefix) includedir=$(DESTDIR)$(includedir) libdir=$(DESTDIR)$(libdir)
 +	@$(MAKE) -C src install \
 +	  DESTDIR=$(DESTDIR) \
 +	  prefix=$(prefix) \
 +	  includedir=$(includedir) \
 +	  libdir=$(libdir) \
-+	  libdevdir=$(libdevdir)
++	  libdevdir=$(libdevdir) \
++	  $(nil)
  
  check:
  	@$(MAKE) -C harness check
@@ -44,25 +46,27 @@ Last-Update: 2007-09-11
 +DESTDIR=
  prefix=/usr
  includedir=$(prefix)/include
- libdir=$(prefix)/lib
-+libdevdir=$(prefix)/lib
+-libdir=$(prefix)/lib
++libdir=$(prefix)/lib32
++libdevdir=$(libdir)
  
  CFLAGS ?= -g -fomit-frame-pointer -O2
- CFLAGS += -nostdlib -nostartfiles -Wall -I. -fPIC
-@@ -53,11 +55,11 @@ $(libname): $(libaio_sobjs) libaio.map
+ CFLAGS += -Wall -I. -fPIC
+@@ -58,12 +60,12 @@ $(libname): $(libaio_sobjs) libaio.map
  	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $(libaio_sobjs) $(LINK_FLAGS)
  
  install: $(all_targets)
 -	install -D -m 644 libaio.h $(includedir)/libaio.h
 -	install -D -m 644 libaio.a $(libdir)/libaio.a
++	install -D -m 644 libaio.h $(DESTDIR)$(includedir)/libaio.h
++	install -D -m 644 libaio.a $(DESTDIR)$(libdevdir)/libaio.a
+ ifeq ($(ENABLE_SHARED),1)
 -	install -D -m 755 $(libname) $(libdir)/$(libname)
 -	ln -sf $(libname) $(libdir)/$(soname)
 -	ln -sf $(libname) $(libdir)/libaio.so
-+	install -D -m 644 libaio.h $(DESTDIR)$(includedir)/libaio.h
-+	install -D -m 644 libaio.a $(DESTDIR)$(libdevdir)/libaio.a
 +	install -D -m 755 $(libname) $(DESTDIR)$(libdir)/$(libname)
-+	ln -sf $(libdir)/$(libname) $(DESTDIR)$(libdir)/$(soname)
-+	ln -sf $(libdir)/$(libname) $(DESTDIR)$(libdevdir)/libaio.so
++	ln -sf $(libname) $(DESTDIR)$(libdir)/$(soname)
++	ln -sf $(libname) $(DESTDIR)$(libdevdir)/libaio.so
+ endif
  
  $(libaio_objs): libaio.h
- 
