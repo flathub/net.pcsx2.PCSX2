@@ -2,7 +2,7 @@
     "app-id": "net.pcsx2.PCSX2",
     "runtime": "org.freedesktop.Platform",
     "sdk": "org.freedesktop.Sdk",
-    "runtime-version": "18.08",
+    "runtime-version": "19.08",
     "command": "PCSX2",
     "rename-desktop-file": "PCSX2.desktop",
     "rename-icon": "PCSX2",
@@ -15,9 +15,61 @@
         "--filesystem=xdg-run/dconf",
         "--filesystem=~/.config/dconf:ro",
         "--talk-name=ca.desrt.dconf",
-        "--filesystem=host:ro"
+        "--filesystem=host:ro",
+        "--allow=multiarch"
     ],
+    "add-extensions": {
+        "org.freedesktop.Platform.Compat.i386": {
+            "directory": "lib/i386-linux-gnu",
+            "version": "19.08"
+        },
+        "org.freedesktop.Platform.Compat.i386.Debug": {
+            "directory": "lib/debug/lib/i386-linux-gnu",
+            "version": "19.08",
+            "no-autodownload": true
+        },
+        "org.freedesktop.Platform.GL32": {
+            "directory": "lib/i386-linux-gnu/GL",
+            "version": "19.08",
+            "subdirectories": true,
+            "no-autodownload": true,
+            "autodelete": false,
+            "add-ld-path": "lib",
+            "merge-dirs": "vulkan/icd.d;glvnd/egl_vendor.d",
+            "download-if": "active-gl-driver",
+            "enable-if": "active-gl-driver"
+        }
+    },
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Compat.i386",
+        "org.freedesktop.Sdk.Extension.toolchain-i386"
+    ],
+    "build-options": {
+        "prepend-pkg-config-path": "/app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig",
+        "ldflags": "-L/app/lib32",
+        "append-path": "/usr/lib/sdk/toolchain-i386/bin",
+        "env": {
+            "CC": "i686-unknown-linux-gnu-gcc",
+            "CXX": "i686-unknown-linux-gnu-g++"
+        },
+        "libdir": "/app/lib32"
+    },
     "modules": [
+      {
+          "name": "compati386",
+          "buildsystem": "simple",
+          "build-commands": [
+              "mkdir -p /app/lib/i386-linux-gnu",
+              "mkdir -p  /app/lib/debug/lib/i386-linux-gnu",
+              "install -Dm644 -t /app/etc ld.so.conf"
+          ],
+          "sources": [
+              {
+                  "type": "file",
+                  "path": "ld.so.conf"
+              }
+          ]
+      },
       {
           "name": "wxWidgets",
           "cleanup": [
@@ -25,7 +77,7 @@
               "/include",
               "/share/bakefile",
               "/share/aclocal",
-              "/lib/wx/include"
+              "/lib32/wx/include"
           ],
           "config-opts": [
               "--with-opengl",
@@ -53,26 +105,25 @@
             }
           ],
           "modules": [
-              "shared-modules/glu/glu-9.0.0.json"
+              "shared-modules/glu/glu-9.json"
           ]
         },
         {
             "name": "libaio",
             "no-autogen": true,
             "make-install-args": ["prefix=/app"],
-            "cleanup": [ "/include", "/lib/*.a" ],
+            "cleanup": [ "/include", "/lib32/*.a" ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://deb.debian.org/debian/pool/main/liba/libaio/libaio_0.3.110.orig.tar.gz",
-                    "sha256": "e019028e631725729376250e32b473012f7cb68e1f7275bfc1bbcdd0f8745f7e"
+                    "url": "https://deb.debian.org/debian/pool/main/liba/libaio/libaio_0.3.112.orig.tar.xz",
+                    "sha256": "f69e5800425f4ea957426693ac09f9896bb993db5490fa021644454adcc72a32"
                 },
                 {
                     "type": "patch",
                     "paths": [
                         "link-libs.patch",
                         "fix-install-dirs.patch",
-                        "no-werror.patch",
                         "fix-build-flags.patch"
                     ]
                 }
@@ -80,7 +131,7 @@
         },
         {
           "name": "portaudio",
-          "cleanup": [ "/include", "/lib/pkgconfig", "/lib/*.la" ],
+          "cleanup": [ "/include", "/lib/pkgconfig", "/lib32/*.la" ],
           "config-opts": [ "--disable-static" ],
           "sources": [
               {
@@ -98,17 +149,17 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://www.surina.net/soundtouch/soundtouch-1.9.2.tar.gz",
-                    "sha256": "caeb86511e81420eeb454cb5db53f56d96b8451d37d89af6e55b12eb4da1c513"
+                    "url": "https://gitlab.com/soundtouch/soundtouch/-/archive/2.1.1/soundtouch-2.1.1.tar.gz",
+                    "sha256": "09311b159e15b2f5ceec953ad711922b466642a3000449f17de1874ce7a3ac8a"
                 }
             ],
             "cleanup": [
                 "/bin",
                 "/include",
-                "/lib/pkgconfig",
+                "/lib32/pkgconfig",
                 "/share/aclocal",
                 "/share/doc",
-                "/lib/*.la"
+                "/lib32/*.la"
             ]
         },
         {
@@ -122,17 +173,19 @@
           "sources": [
               {
                 "type": "archive",
-                "url": "https://download.savannah.nongnu.org/releases/pngpp/png++-0.2.9.tar.gz",
-                "sha256": "abbc6a0565122b6c402d61743451830b4faee6ece454601c5711e1c1b4238791"
+                "url": "https://download.savannah.nongnu.org/releases/pngpp/png++-0.2.10.tar.gz",
+                "sha256": "998af216ab16ebb88543fbaa2dbb9175855e944775b66f2996fc945c8444eee1"
               }
           ]
         },
-        "shared-modules/udev/udev-175.json",
         {
             "name": "pcsx2",
             "buildsystem": "cmake-ninja",
             "config-opts": [
+                "-DCMAKE_TOOLCHAIN_FILE=cmake/linux-compiler-i386-multilib.cmake",
                 "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_LIBRARY_PATH=/app/lib32",
+                "-DPLUGIN_DIR=/app/lib32/pcsx2",
                 "-DGTK3_API=TRUE",
                 "-DPACKAGE_MODE=TRUE",
                 "-DXDG_STD=TRUE",
@@ -156,7 +209,7 @@
               {
                 "type": "git",
                 "url": "https://github.com/PCSX2/pcsx2.git",
-                "commit": "74e6c437f2cb1e3303fe71237f0ccb257853d804"
+                "commit": "79db01d7ed01a4f3de06a8d8dc5c5e7099ef9d2e"
               },
               {
                   "type": "file",
