@@ -48,12 +48,12 @@
           "sources": [ 
             {  
                 "type": "archive", 
-                "url": "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2",
-                "sha256":"96157f988d261b7368e5340afa1a0cad943768f35929c22841f62c25b17bf7f0"
+                "url": "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.5/wxWidgets-3.0.5.tar.bz2",
+                "sha256":"8aacd56b462f42fb6e33b4d8f5d40be5abc3d3b41348ea968aa515cc8285d813"
             }
           ],
           "modules": [
-              "shared-modules/glu/glu-9.0.0.json"
+              "shared-modules/glu/glu-9.json"
           ]
         },
         {
@@ -64,8 +64,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://deb.debian.org/debian/pool/main/liba/libaio/libaio_0.3.110.orig.tar.gz",
-                    "sha256": "e019028e631725729376250e32b473012f7cb68e1f7275bfc1bbcdd0f8745f7e"
+                    "url": "https://deb.debian.org/debian/pool/main/liba/libaio/libaio_0.3.112.orig.tar.xz",
+                    "sha256": "f69e5800425f4ea957426693ac09f9896bb993db5490fa021644454adcc72a32"
                 },
                 {
                     "type": "patch",
@@ -99,7 +99,7 @@
                 {
                     "type": "archive",
                     "url": "https://www.surina.net/soundtouch/soundtouch-1.9.2.tar.gz",
-                    "sha256": "caeb86511e81420eeb454cb5db53f56d96b8451d37d89af6e55b12eb4da1c513"
+                    "sha256": "876c3bc72016fc482700b39c3b3ab19404e7d679"
                 }
             ],
             "cleanup": [
@@ -156,7 +156,7 @@
               {
                 "type": "git",
                 "url": "https://github.com/PCSX2/pcsx2.git",
-                "commit": "74e6c437f2cb1e3303fe71237f0ccb257853d804"
+                "commit": "876c3bc72016fc482700b39c3b3ab19404e7d679"
               },
               {
                   "type": "file",
