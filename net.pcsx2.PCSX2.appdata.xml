@@ -21,10 +21,10 @@
       <li>Ability to record in full HD with the built-in video recorder (F12 using the GSdx plugin)</li>
     </ul>
   </description>
-  <url type="homepage">https://pcsx2.net/</url>
-  <url type="bugtracker">https://github.com/PCSX2/pcsx2/issues?</url>
+  <url type="homepage">https://pcsx2.net</url>
+  <url type="bugtracker">https://github.com/PCSX2/pcsx2/issues</url>
   <releases>
-    <release date="2019-08-30" version="1.5.0-dev"/>
+    <release date="2020-03-22" version="v1.6.0-rc"/>
   </releases>
   <screenshots>
     <screenshot type="default">
