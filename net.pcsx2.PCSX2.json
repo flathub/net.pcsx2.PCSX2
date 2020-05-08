@@ -11,7 +11,7 @@
         "--share=ipc",
         "--socket=x11",
         "--socket=pulseaudio",
-        "--filesystem=host",
+        "--filesystem=host:ro",
         "--allow=multiarch"
     ],
     "add-extensions": {
