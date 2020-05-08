@@ -11,11 +11,7 @@
         "--share=ipc",
         "--socket=x11",
         "--socket=pulseaudio",
-        "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
-        "--filesystem=xdg-run/dconf",
-        "--filesystem=~/.config/dconf:ro",
-        "--talk-name=ca.desrt.dconf",
-        "--filesystem=host:ro",
+        "--filesystem=host",
         "--allow=multiarch"
     ],
     "add-extensions": {
