@@ -26,7 +26,8 @@
         },
         "org.freedesktop.Platform.GL32": {
             "directory": "lib/i386-linux-gnu/GL",
-            "version": "19.08",
+            "version": "1.4",
+            "versions": "19.08;1.4",
             "subdirectories": true,
             "no-autodownload": true,
             "autodelete": false,
@@ -56,7 +57,8 @@
           "buildsystem": "simple",
           "build-commands": [
               "mkdir -p /app/lib/i386-linux-gnu",
-              "mkdir -p  /app/lib/debug/lib/i386-linux-gnu",
+              "mkdir -p /app/lib/debug/lib/i386-linux-gnu",
+              "mkdir -p /app/lib/i386-linux-gnu/GL",
               "install -Dm644 -t /app/etc ld.so.conf"
           ],
           "sources": [
