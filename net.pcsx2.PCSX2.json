@@ -2,7 +2,7 @@
     "app-id": "net.pcsx2.PCSX2",
     "runtime": "org.freedesktop.Platform",
     "sdk": "org.freedesktop.Sdk",
-    "runtime-version": "19.08",
+    "runtime-version": "20.08",
     "command": "PCSX2",
     "rename-desktop-file": "PCSX2.desktop",
     "rename-icon": "PCSX2",
@@ -17,17 +17,17 @@
     "add-extensions": {
         "org.freedesktop.Platform.Compat.i386": {
             "directory": "lib/i386-linux-gnu",
-            "version": "19.08"
+            "version": "20.08"
         },
         "org.freedesktop.Platform.Compat.i386.Debug": {
             "directory": "lib/debug/lib/i386-linux-gnu",
-            "version": "19.08",
+            "version": "20.08",
             "no-autodownload": true
         },
         "org.freedesktop.Platform.GL32": {
             "directory": "lib/i386-linux-gnu/GL",
             "version": "1.4",
-            "versions": "19.08;1.4",
+            "versions": "20.08;1.4",
             "subdirectories": true,
             "no-autodownload": true,
             "autodelete": false,
@@ -177,6 +177,22 @@
           ]
         },
         {
+          "name": "libpcap",
+          "buildsystem": "simple",
+          "build-commands": [
+            "./configure --prefix=/app",
+            "make",
+	    "make install"
+          ],
+          "sources": [
+              {
+                "type": "archive",
+                "url": "http://www.tcpdump.org/release/libpcap-1.10.0.tar.gz",
+                "md5": "8c12dc19dd7e0d02d2bb6596eb5a71c7"
+              }
+          ]
+        },
+        {
             "name": "pcsx2",
             "buildsystem": "cmake-ninja",
             "config-opts": [
@@ -190,7 +206,6 @@
                 "-DDISABLE_BUILD_DATE=TRUE",
                 "-DDISABLE_PCSX2_WRAPPER=TRUE",
                 "-DDISABLE_ADVANCE_SIMD=TRUE",
-                "-DDISABLE_DEV9GHZDRK=TRUE",
                 "-DOpenGL_GL_PREFERENCE=GLVND"
             ],
             "cleanup": [
@@ -207,7 +222,7 @@
               {
                 "type": "git",
                 "url": "https://github.com/PCSX2/pcsx2.git",
-                "commit": "aaaf29557fe63870ede815dd6d2e48a98279ca59"
+                "commit": "2eb6d9a0fb4a63e286efeca787cf12cab59030a9"
               },
               {
                   "type": "file",
