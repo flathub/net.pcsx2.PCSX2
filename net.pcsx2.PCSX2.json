@@ -1,239 +1,206 @@
 {
-    "app-id": "net.pcsx2.PCSX2",
-    "runtime": "org.freedesktop.Platform",
-    "sdk": "org.freedesktop.Sdk",
-    "runtime-version": "20.08",
-    "command": "PCSX2",
-    "rename-desktop-file": "PCSX2.desktop",
-    "rename-icon": "PCSX2",
-    "finish-args": [
-        "--device=all",
-        "--share=ipc",
-        "--socket=x11",
-        "--socket=pulseaudio",
-        "--filesystem=host:ro",
-        "--allow=multiarch"
-    ],
-    "add-extensions": {
-        "org.freedesktop.Platform.Compat.i386": {
-            "directory": "lib/i386-linux-gnu",
-            "version": "20.08"
-        },
-        "org.freedesktop.Platform.Compat.i386.Debug": {
-            "directory": "lib/debug/lib/i386-linux-gnu",
-            "version": "20.08",
-            "no-autodownload": true
-        },
-        "org.freedesktop.Platform.GL32": {
-            "directory": "lib/i386-linux-gnu/GL",
-            "version": "1.4",
-            "versions": "20.08;1.4",
-            "subdirectories": true,
-            "no-autodownload": true,
-            "autodelete": false,
-            "add-ld-path": "lib",
-            "merge-dirs": "vulkan/icd.d;glvnd/egl_vendor.d",
-            "download-if": "active-gl-driver",
-            "enable-if": "active-gl-driver"
-        }
-    },
-    "sdk-extensions": [
-        "org.freedesktop.Sdk.Compat.i386",
-        "org.freedesktop.Sdk.Extension.toolchain-i386"
-    ],
-    "build-options": {
-        "prepend-pkg-config-path": "/app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig",
-        "ldflags": "-L/app/lib32",
-        "append-path": "/usr/lib/sdk/toolchain-i386/bin",
-        "env": {
-            "CC": "i686-unknown-linux-gnu-gcc",
-            "CXX": "i686-unknown-linux-gnu-g++"
-        },
-        "libdir": "/app/lib32"
-    },
-    "modules": [
-      {
-          "name": "compati386",
-          "buildsystem": "simple",
-          "build-commands": [
-              "mkdir -p /app/lib/i386-linux-gnu",
-              "mkdir -p /app/lib/debug/lib/i386-linux-gnu",
-              "mkdir -p /app/lib/i386-linux-gnu/GL",
-              "install -Dm644 -t /app/etc ld.so.conf"
-          ],
-          "sources": [
-              {
-                  "type": "file",
-                  "path": "ld.so.conf"
-              }
-          ]
+  "app-id": "net.pcsx2.PCSX2",
+  "runtime": "org.freedesktop.Platform",
+  "sdk": "org.freedesktop.Sdk",
+  "runtime-version": "20.08",
+  "command": "PCSX2",
+  "rename-desktop-file": "PCSX2.desktop",
+  "rename-icon": "PCSX2",
+  "finish-args": [
+    "--device=all",
+    "--share=ipc",
+    "--socket=x11",
+    "--socket=pulseaudio",
+    "--filesystem=host:ro",
+    "--allow=multiarch"
+  ],
+  "add-extensions": {
+    "org.freedesktop.Platform.GL": {
+      "directory": "lib/GL",
+      "version": "1.4",
+      "versions": "20.08;1.4",
+      "subdirectories": true,
+      "no-autodownload": true,
+      "autodelete": false,
+      "add-ld-path": "lib",
+      "merge-dirs": "vulkan/icd.d;glvnd/egl_vendor.d",
+      "download-if": "active-gl-driver",
+      "enable-if": "active-gl-driver"
+    }
+  },
+  "cleanup-commands": [
+    "mkdir -p /app/lib/GL"
+  ],
+  "sdk-extensions": [],
+  "build-options": {},
+  "modules": [
+    {
+      "name": "wxWidgets",
+      "cleanup": [
+        "/bin",
+        "/include",
+        "/share/bakefile",
+        "/share/aclocal",
+        "/lib32/wx/include"
+      ],
+      "config-opts": [
+        "--with-opengl",
+        "--with-libjpeg",
+        "--with-libpng",
+        "--with-zlib",
+        "--disable-sdltest",
+        "--enable-unicode",
+        "--enable-display",
+        "--enable-propgrid",
+        "--disable-webkit",
+        "--disable-webview",
+        "--disable-webviewwebkit",
+        "--with-expat=builtin",
+        "--with-libiconv=/usr"
+      ],
+      "build-options": {
+        "cxxflags": "-std=c++0x"
       },
-      {
-          "name": "wxWidgets",
-          "cleanup": [
-              "/bin",
-              "/include",
-              "/share/bakefile",
-              "/share/aclocal",
-              "/lib32/wx/include"
-          ],
-          "config-opts": [
-              "--with-opengl",
-              "--with-libjpeg",
-              "--with-libpng",
-              "--with-zlib",
-              "--disable-sdltest",
-              "--enable-unicode",
-              "--enable-display",
-              "--enable-propgrid",
-              "--disable-webkit",
-              "--disable-webview",
-              "--disable-webviewwebkit",
-              "--with-expat=builtin",
-              "--with-libiconv=/usr"
-          ],
-          "build-options" : {
-              "cxxflags":"-std=c++0x"
-          },
-          "sources": [
-            {
-                "type": "archive",
-                "url": "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2",
-                "sha256":"96157f988d261b7368e5340afa1a0cad943768f35929c22841f62c25b17bf7f0"
-            }
-          ],
-          "modules": [
-              "shared-modules/glu/glu-9.json"
-          ]
-        },
+      "sources": [
         {
-            "name": "libaio",
-            "no-autogen": true,
-            "make-install-args": ["prefix=/app"],
-            "cleanup": [ "/include", "/lib32/*.a" ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://deb.debian.org/debian/pool/main/liba/libaio/libaio_0.3.112.orig.tar.xz",
-                    "sha256": "f69e5800425f4ea957426693ac09f9896bb993db5490fa021644454adcc72a32"
-                },
-                {
-                    "type": "patch",
-                    "paths": [
-                        "link-libs.patch",
-                        "fix-install-dirs.patch",
-                        "fix-build-flags.patch"
-                    ]
-                }
-            ]
-        },
-        {
-          "name": "portaudio",
-          "cleanup": [ "/include", "/lib/pkgconfig", "/lib32/*.la" ],
-          "config-opts": [ "--disable-static" ],
-          "sources": [
-              {
-                  "type": "archive",
-                  "url": "http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz",
-                  "sha256": "f5a21d7dcd6ee84397446fa1fa1a0675bb2e8a4a6dceb4305a8404698d8d1513"
-              }
-          ]
-        },
-        {
-            "name": "soundtouch",
-            "config-opts": [
-                "--disable-static"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://gitlab.com/soundtouch/soundtouch/-/archive/2.1.1/soundtouch-2.1.1.tar.gz",
-                    "sha256": "09311b159e15b2f5ceec953ad711922b466642a3000449f17de1874ce7a3ac8a"
-                }
-            ],
-            "cleanup": [
-                "/bin",
-                "/include",
-                "/lib32/pkgconfig",
-                "/share/aclocal",
-                "/share/doc",
-                "/lib32/*.la"
-            ]
-        },
-        {
-          "name": "png++",
-          "disabled": true,
-          "buildsystem": "simple",
-          "build-commands": [
-            "make",
-            "make prefix=/app install"
-          ],
-          "sources": [
-              {
-                "type": "archive",
-                "url": "https://download.savannah.nongnu.org/releases/pngpp/png++-0.2.10.tar.gz",
-                "sha256": "998af216ab16ebb88543fbaa2dbb9175855e944775b66f2996fc945c8444eee1"
-              }
-          ]
-        },
-        {
-          "name": "libpcap",
-          "buildsystem": "simple",
-          "build-commands": [
-            "./configure --prefix=/app",
-            "make",
-	    "make install"
-          ],
-          "sources": [
-              {
-                "type": "archive",
-                "url": "http://www.tcpdump.org/release/libpcap-1.10.0.tar.gz",
-                "md5": "8c12dc19dd7e0d02d2bb6596eb5a71c7"
-              }
-          ]
-        },
-        {
-            "name": "pcsx2",
-            "buildsystem": "cmake-ninja",
-            "config-opts": [
-                "-DCMAKE_TOOLCHAIN_FILE=cmake/linux-compiler-i386-multilib.cmake",
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DCMAKE_LIBRARY_PATH=/app/lib32",
-                "-DPLUGIN_DIR=/app/lib32/pcsx2",
-                "-DGTK3_API=TRUE",
-                "-DPACKAGE_MODE=TRUE",
-                "-DXDG_STD=TRUE",
-                "-DDISABLE_BUILD_DATE=TRUE",
-                "-DDISABLE_PCSX2_WRAPPER=TRUE",
-                "-DDISABLE_ADVANCE_SIMD=TRUE",
-                "-DOpenGL_GL_PREFERENCE=GLVND"
-            ],
-            "cleanup": [
-                "/share/pixmaps",
-                "/share/man",
-                "/share/doc"
-            ],
-            "post-install": [
-                "desktop-file-edit --set-key=Exec --set-value=PCSX2 /app/share/applications/PCSX2.desktop",
-                "install -Dm644 AppIcon128.png /app/share/icons/hicolor/128x128/apps/PCSX2.png",
-                "install -Dm644 net.pcsx2.PCSX2.metainfo.xml /app/share/metainfo/net.pcsx2.PCSX2.metainfo.xml"
-            ],
-            "sources": [
-              {
-                "type": "git",
-                "url": "https://github.com/PCSX2/pcsx2.git",
-                "commit": "2eb6d9a0fb4a63e286efeca787cf12cab59030a9"
-              },
-              {
-                  "type": "file",
-                  "path": "net.pcsx2.PCSX2.metainfo.xml"
-              },
-              {
-                  "type": "file",
-                  "path": "AppIcon128.png"
-              }
-
-            ]
+          "type": "archive",
+          "url": "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2",
+          "sha256": "96157f988d261b7368e5340afa1a0cad943768f35929c22841f62c25b17bf7f0"
         }
-    ]
+      ],
+      "modules": [
+        "shared-modules/glu/glu-9.json"
+      ]
+    },
+    {
+      "name": "libaio",
+      "config-opts": [
+        "--buildtype=debugoptimized"
+      ],
+      "buildsystem": "simple",
+      "build-commands": [
+        "make prefix=$FLATPAK_DEST install"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://pagure.io/libaio.git",
+          "tag": "libaio-0.3.111",
+          "commit": "f66be22ab0a59a39858900ab72a8c6a6e8b0b7ec"
+        }
+      ]
+    },
+    {
+      "name": "portaudio",
+      "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/lib32/*.la"
+      ],
+      "config-opts": [
+        "--disable-static"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz",
+          "sha256": "f5a21d7dcd6ee84397446fa1fa1a0675bb2e8a4a6dceb4305a8404698d8d1513"
+        }
+      ]
+    },
+    {
+      "name": "soundtouch",
+      "config-opts": [
+        "--disable-static"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://gitlab.com/soundtouch/soundtouch/-/archive/2.1.1/soundtouch-2.1.1.tar.gz",
+          "sha256": "09311b159e15b2f5ceec953ad711922b466642a3000449f17de1874ce7a3ac8a"
+        }
+      ],
+      "cleanup": [
+        "/bin",
+        "/include",
+        "/lib32/pkgconfig",
+        "/share/aclocal",
+        "/share/doc",
+        "/lib32/*.la"
+      ]
+    },
+    {
+      "name": "png++",
+      "disabled": true,
+      "buildsystem": "simple",
+      "build-commands": [
+        "make",
+        "make prefix=/app install"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://download.savannah.nongnu.org/releases/pngpp/png++-0.2.10.tar.gz",
+          "sha256": "998af216ab16ebb88543fbaa2dbb9175855e944775b66f2996fc945c8444eee1"
+        }
+      ]
+    },
+    {
+      "name": "libpcap",
+      "buildsystem": "simple",
+      "build-commands": [
+        "./configure --prefix=/app",
+        "make",
+        "make install"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "http://www.tcpdump.org/release/libpcap-1.10.0.tar.gz",
+          "md5": "8c12dc19dd7e0d02d2bb6596eb5a71c7"
+        }
+      ]
+    },
+    {
+      "name": "pcsx2",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_LIBRARY_PATH=/app/lib",
+        "-DPLUGIN_DIR=/app/lib/pcsx2",
+        "-DGTK3_API=TRUE",
+        "-DPACKAGE_MODE=TRUE",
+        "-DXDG_STD=TRUE",
+        "-DDISABLE_BUILD_DATE=TRUE",
+        "-DDISABLE_PCSX2_WRAPPER=TRUE",
+        "-DDISABLE_ADVANCE_SIMD=TRUE",
+        "-DOpenGL_GL_PREFERENCE=GLVND"
+      ],
+      "cleanup": [
+        "/share/pixmaps",
+        "/share/man",
+        "/share/doc"
+      ],
+      "post-install": [
+        "desktop-file-edit --set-key=Exec --set-value=PCSX2 /app/share/applications/PCSX2.desktop",
+        "install -Dm644 AppIcon128.png /app/share/icons/hicolor/128x128/apps/PCSX2.png",
+        "install -Dm644 net.pcsx2.PCSX2.metainfo.xml /app/share/metainfo/net.pcsx2.PCSX2.metainfo.xml"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/PCSX2/pcsx2.git",
+          "commit": "a35edc95cfef64acc57a1e221f0a62c2e6fcefa2"
+        },
+        {
+          "type": "file",
+          "path": "net.pcsx2.PCSX2.metainfo.xml"
+        },
+        {
+          "type": "file",
+          "path": "AppIcon128.png"
+        }
+      ]
+    }
+  ]
 }
