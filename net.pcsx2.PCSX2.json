@@ -2,7 +2,7 @@
   "app-id": "net.pcsx2.PCSX2",
   "runtime": "org.freedesktop.Platform",
   "sdk": "org.freedesktop.Sdk",
-  "runtime-version": "20.08",
+  "runtime-version": "21.08",
   "command": "PCSX2",
   "rename-desktop-file": "PCSX2.desktop",
   "rename-icon": "PCSX2",
@@ -11,56 +11,20 @@
     "--share=ipc",
     "--socket=x11",
     "--socket=pulseaudio",
-    "--filesystem=host:ro",
-    "--allow=multiarch"
+    "--filesystem=host:ro"
   ],
-  "add-extensions": {
-    "org.freedesktop.Platform.GL": {
-      "directory": "lib/GL",
-      "version": "1.4",
-      "versions": "20.08;1.4",
-      "subdirectories": true,
-      "no-autodownload": true,
-      "autodelete": false,
-      "add-ld-path": "lib",
-      "merge-dirs": "vulkan/icd.d;glvnd/egl_vendor.d",
-      "download-if": "active-gl-driver",
-      "enable-if": "active-gl-driver"
-    }
-  },
-  "cleanup-commands": [
-    "mkdir -p /app/lib/GL"
-  ],
-  "sdk-extensions": [],
-  "build-options": {},
   "modules": [
     {
       "name": "wxWidgets",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+          "-DCMAKE_BUILD_TYPE=Release"
+      ],
       "cleanup": [
         "/bin",
         "/include",
-        "/share/bakefile",
-        "/share/aclocal",
-        "/lib32/wx/include"
+        "/lib/wx/include"
       ],
-      "config-opts": [
-        "--with-opengl",
-        "--with-libjpeg",
-        "--with-libpng",
-        "--with-zlib",
-        "--disable-sdltest",
-        "--enable-unicode",
-        "--enable-display",
-        "--enable-propgrid",
-        "--disable-webkit",
-        "--disable-webview",
-        "--disable-webviewwebkit",
-        "--with-expat=builtin",
-        "--with-libiconv=/usr"
-      ],
-      "build-options": {
-        "cxxflags": "-std=c++0x"
-      },
       "sources": [
         {
           "type": "git",
@@ -79,12 +43,9 @@
     },
     {
       "name": "libaio",
-      "config-opts": [
-        "--buildtype=debugoptimized"
-      ],
-      "buildsystem": "simple",
-      "build-commands": [
-        "make prefix=$FLATPAK_DEST install"
+      "no-autogen": true,
+      "make-install-args": [
+          "prefix=${FLATPAK_DEST}"
       ],
       "sources": [
         {
@@ -97,17 +58,24 @@
               "tag-pattern": "^libaio-([\\d.]+)$"
           }
         }
+      ],
+      "cleanup": [
+        "/include",
+        "/lib/*.a"
       ]
     },
     {
       "name": "portaudio",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+          "-DCMAKE_BUILD_TYPE=Release"
+      ],
       "cleanup": [
         "/include",
+        "/share/doc",
+        "/lib/cmake",
         "/lib/pkgconfig",
-        "/lib32/*.la"
-      ],
-      "config-opts": [
-        "--disable-static"
+        "/lib/*.a"
       ],
       "sources": [
         {
@@ -124,9 +92,7 @@
     },
     {
       "name": "soundtouch",
-      "config-opts": [
-        "--disable-static"
-      ],
+      "buildsystem": "cmake-ninja",
       "sources": [
         {
           "type": "git",
@@ -142,10 +108,10 @@
       "cleanup": [
         "/bin",
         "/include",
-        "/lib32/pkgconfig",
-        "/share/aclocal",
+        "/lib/cmake",
+        "/lib/pkgconfig",
         "/share/doc",
-        "/lib32/*.la"
+        "/lib/*.a"
       ]
     },
     {
@@ -166,12 +132,7 @@
     },
     {
       "name": "libpcap",
-      "buildsystem": "simple",
-      "build-commands": [
-        "./configure --prefix=/app",
-        "make",
-        "make install"
-      ],
+      "buildsystem": "cmake-ninja",
       "sources": [
         {
           "type": "git",
@@ -183,22 +144,26 @@
               "tag-pattern": "^libpcap-([\\d.]+)$"
           }
         }
+      ],
+      "cleanup": [
+          "/bin",
+          "/include",
+          "/share/man",
+          "/lib/pkgconfig",
+          "/lib/*.a"
       ]
     },
     {
       "name": "pcsx2",
       "buildsystem": "cmake-ninja",
+      "builddir": true,
       "config-opts": [
         "-DCMAKE_BUILD_TYPE=Release",
-        "-DCMAKE_LIBRARY_PATH=/app/lib",
-        "-DPLUGIN_DIR=/app/lib/pcsx2",
-        "-DGTK3_API=TRUE",
         "-DPACKAGE_MODE=TRUE",
         "-DXDG_STD=TRUE",
         "-DDISABLE_BUILD_DATE=TRUE",
         "-DDISABLE_PCSX2_WRAPPER=TRUE",
-        "-DDISABLE_ADVANCE_SIMD=TRUE",
-        "-DOpenGL_GL_PREFERENCE=GLVND"
+        "-DDISABLE_ADVANCE_SIMD=TRUE"
       ],
       "cleanup": [
         "/share/pixmaps",
@@ -207,14 +172,15 @@
       ],
       "post-install": [
         "desktop-file-edit --set-key=Exec --set-value=PCSX2 /app/share/applications/PCSX2.desktop",
-        "install -Dm644 AppIcon128.png /app/share/icons/hicolor/128x128/apps/PCSX2.png",
-        "install -Dm644 net.pcsx2.PCSX2.metainfo.xml /app/share/metainfo/net.pcsx2.PCSX2.metainfo.xml"
+        "install -Dm644 ../AppIcon128.png /app/share/icons/hicolor/128x128/apps/PCSX2.png",
+        "install -Dm644 ../net.pcsx2.PCSX2.metainfo.xml /app/share/metainfo/net.pcsx2.PCSX2.metainfo.xml"
       ],
       "sources": [
         {
           "type": "git",
           "url": "https://github.com/PCSX2/pcsx2.git",
-          "commit": "a35edc95cfef64acc57a1e221f0a62c2e6fcefa2"
+          "disable-shallow-clone": true,
+          "commit": "9abaa1adf684645d4b0a4cbcfc9959031d0cc087"
         },
         {
           "type": "file",
