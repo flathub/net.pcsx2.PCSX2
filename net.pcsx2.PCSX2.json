@@ -63,9 +63,14 @@
       },
       "sources": [
         {
-          "type": "archive",
-          "url": "https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2",
-          "sha256": "96157f988d261b7368e5340afa1a0cad943768f35929c22841f62c25b17bf7f0"
+          "type": "git",
+          "url": "https://github.com/wxWidgets/wxWidgets.git",
+          "tag": "v3.1.5",
+          "commit": "9c0a8be1dc32063d91ed1901fd5fcd54f4f955a1",
+          "x-checker-data": {
+              "type": "git",
+              "tag-pattern": "^v([\\d.]+)$"
+          }
         }
       ],
       "modules": [
@@ -85,8 +90,12 @@
         {
           "type": "git",
           "url": "https://pagure.io/libaio.git",
-          "tag": "libaio-0.3.111",
-          "commit": "f66be22ab0a59a39858900ab72a8c6a6e8b0b7ec"
+          "tag": "libaio-0.3.112",
+          "commit": "d025927efa75a0d1b46ca3a5ef331caa2f46ee0e",
+          "x-checker-data": {
+              "type": "git",
+              "tag-pattern": "^libaio-([\\d.]+)$"
+          }
         }
       ]
     },
@@ -102,9 +111,14 @@
       ],
       "sources": [
         {
-          "type": "archive",
-          "url": "http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz",
-          "sha256": "f5a21d7dcd6ee84397446fa1fa1a0675bb2e8a4a6dceb4305a8404698d8d1513"
+          "type": "git",
+          "url": "https://github.com/PortAudio/portaudio.git",
+          "tag": "v19.7.0",
+          "commit": "147dd722548358763a8b649b3e4b41dfffbcfbb6",
+          "x-checker-data": {
+              "type": "git",
+              "tag-pattern": "^v([\\d.]+)$"
+          }
         }
       ]
     },
@@ -115,9 +129,14 @@
       ],
       "sources": [
         {
-          "type": "archive",
-          "url": "https://gitlab.com/soundtouch/soundtouch/-/archive/2.1.1/soundtouch-2.1.1.tar.gz",
-          "sha256": "09311b159e15b2f5ceec953ad711922b466642a3000449f17de1874ce7a3ac8a"
+          "type": "git",
+          "url": "https://gitlab.com/soundtouch/soundtouch.git",
+          "tag": "2.3.1",
+          "commit": "e1f315f5358d9db5cee35a7a2886425489fcefe8",
+          "x-checker-data": {
+              "type": "git",
+              "tag-pattern": "^([\\d.]+)$"
+          }
         }
       ],
       "cleanup": [
@@ -155,9 +174,14 @@
       ],
       "sources": [
         {
-          "type": "archive",
-          "url": "http://www.tcpdump.org/release/libpcap-1.10.0.tar.gz",
-          "md5": "8c12dc19dd7e0d02d2bb6596eb5a71c7"
+          "type": "git",
+          "url": "https://github.com/the-tcpdump-group/libpcap.git",
+          "tag": "libpcap-1.10.1",
+          "commit": "c7642e2cc0c5bd65754685b160d25dc23c76c6bd",
+          "x-checker-data": {
+              "type": "git",
+              "tag-pattern": "^libpcap-([\\d.]+)$"
+          }
         }
       ]
     },
