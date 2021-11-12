@@ -96,7 +96,7 @@
       "sources": [
         {
           "type": "git",
-          "url": "https://gitlab.com/soundtouch/soundtouch.git",
+          "url": "https://codeberg.org/soundtouch/soundtouch.git",
           "tag": "2.3.1",
           "commit": "e1f315f5358d9db5cee35a7a2886425489fcefe8",
           "x-checker-data": {
@@ -180,7 +180,13 @@
           "type": "git",
           "url": "https://github.com/PCSX2/pcsx2.git",
           "disable-shallow-clone": true,
-          "commit": "9abaa1adf684645d4b0a4cbcfc9959031d0cc087"
+          "tag": "v1.7.2035",
+          "commit": "cf64a2bc8e43a271f386b19778780cf210b2f8fc",
+          "x-checker-data": {
+              "type": "git",
+              "tag-pattern": "^v([\\d.]+)$",
+              "is-main-source": true
+          }
         },
         {
           "type": "file",
