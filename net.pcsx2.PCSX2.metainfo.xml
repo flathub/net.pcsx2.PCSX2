@@ -24,6 +24,7 @@
   <url type="homepage">https://pcsx2.net</url>
   <url type="bugtracker">https://github.com/PCSX2/pcsx2/issues</url>
   <releases>
+    <release version="1.7.2039" date="2021-11-13"/>
     <release date="2021-11-12" version="v1.7.2035"/>
   </releases>
   <screenshots>
