@@ -181,12 +181,7 @@
           "url": "https://github.com/PCSX2/pcsx2.git",
           "disable-shallow-clone": true,
           "tag": "v1.7.2035",
-          "commit": "cf64a2bc8e43a271f386b19778780cf210b2f8fc",
-          "x-checker-data": {
-              "type": "git",
-              "tag-pattern": "^v([\\d.]+)$",
-              "is-main-source": true
-          }
+          "commit": "cf64a2bc8e43a271f386b19778780cf210b2f8fc"
         },
         {
           "type": "file",
