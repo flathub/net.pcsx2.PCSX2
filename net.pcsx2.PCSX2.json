@@ -179,8 +179,8 @@
         {
           "type": "git",
           "url": "https://github.com/PCSX2/pcsx2.git",
-          "tag": "v1.7.2078",
-          "commit": "01855fc66aab7cf939b119311c9dd4ef07b138a4"
+          "tag": "v1.7.2083",
+          "commit": "d2742a177cb458745eb08893f3183483c60b80b6"
         },
         {
           "type": "file",
