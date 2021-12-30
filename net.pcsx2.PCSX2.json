@@ -3,7 +3,7 @@
   "runtime": "org.freedesktop.Platform",
   "sdk": "org.freedesktop.Sdk",
   "runtime-version": "21.08",
-  "command": "PCSX2",
+  "command": "pcsx2",
   "rename-desktop-file": "PCSX2.desktop",
   "rename-icon": "PCSX2",
   "finish-args": [
