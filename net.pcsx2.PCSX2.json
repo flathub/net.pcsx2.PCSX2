@@ -171,7 +171,7 @@
         "/share/doc"
       ],
       "post-install": [
-        "desktop-file-edit --set-key=Exec --set-value=PCSX2 /app/share/applications/PCSX2.desktop",
+        "desktop-file-edit --set-key=Exec --set-value=pcsx2 /app/share/applications/PCSX2.desktop",
         "install -Dm644 ../AppIcon128.png /app/share/icons/hicolor/128x128/apps/PCSX2.png",
         "install -Dm644 ../net.pcsx2.PCSX2.metainfo.xml /app/share/metainfo/net.pcsx2.PCSX2.metainfo.xml"
       ],
