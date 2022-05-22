@@ -180,8 +180,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/PCSX2/pcsx2.git",
-                    "tag": "v1.7.2746",
-                    "commit": "6e576d208ebb6ffb785608787dcd00229e7f9d41"
+                    "tag": "v1.7.2758",
+                    "commit": "cad85d76a5285336755de632569e83570d81ce9f"
                 },
                 {
                     "type": "file",
