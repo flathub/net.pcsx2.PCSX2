@@ -37,34 +37,32 @@ Since Flatpak does not contain permissions to write to the network stack via lib
 and will need the `--share=network` permissions. (Note: Running apps like this under root is not a good idea.)
 
 If networking still does not work, or adapters do not show up, you will need to grant cap permissions to PCSX2
-```bash
-$> setcap cap_net_raw,cap_net_admin=eip /var/lib/flatpak/app/net.pcsx2.PCSX2/current/active/files/bin/PCSX2
+```sh
+setcap cap_net_raw,cap_net_admin=eip /var/lib/flatpak/app/net.pcsx2.PCSX2/current/active/files/bin/PCSX2
 ```
 
 #### Audio support
 If you run the PCSX2 flatpak under root or some other user, you need to run PulseAudio in multi-user mode to have sound support:
-```bash
-$> flatpak run --system --socket=pulseaudio net.pcsx2.PCSX2`
+```sh
+flatpak run --system --socket=pulseaudio net.pcsx2.PCSX2`
 ```
 
 ### BIOS issues
 PCSX2 tries to open some PS2 BIOS files with lowercase extensions ([PCSX2 issue 5954](/PCSX2/pcsx2/issues/5954)), so rename your PS2's BIOS files to lowercase extensions (`.NVM` -> `.nvm`, etc.)
 
 PCSX2 may write to files in the PS2 BIOS directory. So if in "PCSX2 First Time Configuration" you point to some other directory than the default (the flatpak's data directory), you can grant the flatpak write access to that directory
-```bash
-$> flatpak override --user net.pcsx2.PCSX2 --filesystem=/path/to/my/PS2_BIOS
+```sh
+flatpak override --user net.pcsx2.PCSX2 --filesystem=/path/to/my/PS2_BIOS
 ```
 
-## Building
-If you want to build the PCSX2 flatpak yourself:
+## Build
 
-1. Read the flatpak documentation, starting with [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html).
+`flatpak-builder` is required, see [Building your first Flatpak](https://docs.flatpak.org/en/latest/first-build.html).
 
-2. You need to install the `flatpak-builder` package for your operating system. 
+- Install the SDK
 
-3. Clone this repository, then
+`flatpak install org.kde.Platform/x86_64/6.3 org.kde.Sdk/x86_64/6.3`
 
-```bash
-$> cd net.pcsx2.PCSX2
-$> flatpak-builder builddir --force-clean --install-deps-from=flathub net.pcsx2.PCSX2.json
-```
+- Build PCSX2
+
+`flatpak-builder --user --install --force-clean build-dir net.pcsx2.PCSX2.json`
