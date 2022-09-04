@@ -202,7 +202,6 @@
             "builddir": true,
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=Release",
-                "-DPACKAGE_MODE=ON",
                 "-DXDG_STD=ON",
                 "-DDISABLE_BUILD_DATE=ON",
                 "-DDISABLE_PCSX2_WRAPPER=ON",
@@ -218,11 +217,11 @@
                 "/share/doc"
             ],
             "post-install": [
-                "install -Dm644 ${FLATPAK_DEST}/share/applications/PCSX2.desktop ${FLATPAK_DEST}/share/applications/net.pcsx2.PCSX2.Qt.desktop",
-                "desktop-file-edit --set-key=Exec --set-value=pcsx2-qt ${FLATPAK_DEST}/share/applications/net.pcsx2.PCSX2.Qt.desktop",
+                "cp -r ../bin/* ${FLATPAK_DEST}/bin",
+                "rm ${FLATPAK_DEST}/bin/portable.ini",
+                "install -Dm644 ../.github/workflows/scripts/linux/pcsx2-qt.desktop ${FLATPAK_DEST}/share/applications/net.pcsx2.PCSX2.Qt.desktop",
                 "desktop-file-edit --set-key=Icon --set-value=net.pcsx2.PCSX2 ${FLATPAK_DEST}/share/applications/net.pcsx2.PCSX2.Qt.desktop",
-                "desktop-file-edit --set-key=Name --set-value='PCSX2 Qt' ${FLATPAK_DEST}/share/applications/net.pcsx2.PCSX2.Qt.desktop",
-                "ln -s ${FLATPAK_DEST}/share/PCSX2/resources ${FLATPAK_DEST}/bin/resources"
+                "desktop-file-edit --set-key=Name --set-value='PCSX2 Qt' ${FLATPAK_DEST}/share/applications/net.pcsx2.PCSX2.Qt.desktop"
             ],
             "sources": [
                 {
