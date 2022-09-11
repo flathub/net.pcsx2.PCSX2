@@ -183,8 +183,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/PCSX2/pcsx2.git",
-                    "tag": "v1.7.3275",
-                    "commit": "b96594b17cb362d381e291232b490142fd615382"
+                    "tag": "v1.7.3301",
+                    "commit": "f3f495d23b5fabe8c6e7278f046a3312898e6f04"
                 },
                 {
                     "type": "file",
@@ -227,8 +227,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/PCSX2/pcsx2.git",
-                    "tag": "v1.7.3275",
-                    "commit": "b96594b17cb362d381e291232b490142fd615382"
+                    "tag": "v1.7.3301",
+                    "commit": "f3f495d23b5fabe8c6e7278f046a3312898e6f04"
                 }
             ]
         }
