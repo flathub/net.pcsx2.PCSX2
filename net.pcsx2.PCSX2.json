@@ -116,10 +116,9 @@
         {
             "name": "png++",
             "disabled": true,
-            "buildsystem": "simple",
-            "build-commands": [
-                "make",
-                "make prefix=/app install"
+            "buildsystem": "autotools",
+            "make-install-args": [
+                "prefix=${FLATPAK_DEST}"
             ],
             "sources": [
                 {
