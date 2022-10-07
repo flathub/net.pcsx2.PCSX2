@@ -17,7 +17,7 @@
             "name": "wxWidgets",
             "buildsystem": "cmake-ninja",
             "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release"
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
             ],
             "cleanup": [
                 "/bin",
@@ -67,7 +67,7 @@
             "name": "portaudio",
             "buildsystem": "cmake-ninja",
             "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release"
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
             ],
             "cleanup": [
                 "/include",
@@ -156,7 +156,7 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DPACKAGE_MODE=ON",
                 "-DXDG_STD=ON",
                 "-DDISABLE_BUILD_DATE=ON",
@@ -200,7 +200,7 @@
             "buildsystem": "cmake-ninja",
             "builddir": true,
             "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DXDG_STD=ON",
                 "-DDISABLE_BUILD_DATE=ON",
                 "-DDISABLE_PCSX2_WRAPPER=ON",
