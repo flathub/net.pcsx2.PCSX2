@@ -1,25 +1,22 @@
-name: Update commit hash
+name: Check for updates
 on:
-  schedule:
-    - cron: "0 0 * * 0" # Every Sunday at 00:00
+  schedule: # for scheduling to work this file must be in the default branch
+  - cron: "0 0 * * 0" # Every Sunday at 00:00
+  workflow_dispatch: # can be manually dispatched under GitHub's "Actions" tab
 
 jobs:
-  change-commit:
-    name: Change the commit hash to the latest upstream one
+  flatpak-external-data-checker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Change commit
-        run: |
-          commit_and_tag=$(git ls-remote --sort=version:refname https://github.com/PCSX2/pcsx2 'refs/tags/v*' | awk 'END { print $0 }' | tr -d '^{}')
-          commit=${commit_and_tag%%	*}
-          tag=${commit_and_tag##*/}
-          sed -i "/pcsx2.git/{n;s/tag.*/tag\": \"$tag\",/;n;s/commit.*/commit\": \"$commit\"/}" net.pcsx2.PCSX2.json
-          sed -i "s|    <release .*|    <release date=\"$(date -I)\" version=\"$tag\"/>|" net.pcsx2.PCSX2.metainfo.xml
-      - name: Push the change
-        run: |
-          git config user.name CI
-          git config user.email ""
-          git add net.pcsx2.PCSX2.json net.pcsx2.PCSX2.metainfo.xml
-          git commit -m "Update pcsx2.git" || exit 0
-          git push
+      - uses: actions/checkout@v3
+      - uses: docker://ghcr.io/flathub/flatpak-external-data-checker:latest
+        env:
+          GIT_AUTHOR_NAME: Flatpak External Data Checker
+          GIT_COMMITTER_NAME: Flatpak External Data Checker
+          # email sets "github-actions[bot]" as commit author, see https://github.community/t/github-actions-bot-email-address/17204/6
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: --update --never-fork net.pcsx2.PCSX2.json
