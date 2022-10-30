@@ -1,7 +1,8 @@
 name: Check for updates
 on:
   schedule: # for scheduling to work this file must be in the default branch
-  - cron: "0 0,1 * * 0" # Every Sunday at 00:00 and 01:00
+  - cron: "30 0 * * *" # Every day at 00:30
+  - cron: "30 1 * * *"
   workflow_dispatch: # can be manually dispatched under GitHub's "Actions" tab
 
 jobs:
@@ -19,4 +20,4 @@ jobs:
           EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: --update --never-fork net.pcsx2.PCSX2.json
+          args: --update --never-fork net.pcsx2.PCSX2.yml
