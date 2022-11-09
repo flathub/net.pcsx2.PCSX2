@@ -67,8 +67,8 @@ modules:
     sources:
       - type: git
         url: https://codeberg.org/soundtouch/soundtouch.git
-        tag: 2.3.1
-        commit: e1f315f5358d9db5cee35a7a2886425489fcefe8
+        tag: 2.3.2
+        commit: 29fba832a7920a04eab956b3990c50e13d8c93f9
         x-checker-data:
           type: git
           tag-pattern: ^([\d.]+)$
@@ -130,8 +130,8 @@ modules:
     sources: &pcsx2-sources
       - type: git
         url: https://github.com/PCSX2/pcsx2.git
-        tag: v1.7.3538
-        commit: 39c35d44301d5d6751e9c3e4a8efa8037e5d1338
+        tag: v1.7.3541
+        commit: 212b2aea16503568bafa0b14e1923c38c5e54322
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
