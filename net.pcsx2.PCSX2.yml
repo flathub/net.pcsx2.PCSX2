@@ -5,6 +5,7 @@ runtime-version: '6.3'
 command: pcsx2
 finish-args:
   - --device=all
+  - --share=network
   - --share=ipc
   - --socket=fallback-x11
   - --socket=wayland
