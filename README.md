@@ -61,8 +61,8 @@ flatpak override --user net.pcsx2.PCSX2 --filesystem=/path/to/my/PS2_BIOS
 
 - Install the SDK
 
-`flatpak install org.kde.Platform/x86_64/6.3 org.kde.Sdk/x86_64/6.3`
+`flatpak install org.kde.Platform/x86_64/6.4 org.kde.Sdk/x86_64/6.4`
 
 - Build PCSX2
 
-`flatpak-builder --user --install --force-clean build-dir net.pcsx2.PCSX2.json`
+`flatpak-builder --user --install --force-clean build-dir net.pcsx2.PCSX2.yml`
