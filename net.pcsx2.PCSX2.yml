@@ -96,8 +96,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/PCSX2/pcsx2.git
-        tag: v1.7.3808
-        commit: 94d52d9ddb2efa6202ad2cf530ed49b54cd90414
+        tag: v1.7.3819
+        commit: 79764430d820bec44ff69ecca42bffb2700dcaea
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
