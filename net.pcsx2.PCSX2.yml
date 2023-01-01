@@ -58,8 +58,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/the-tcpdump-group/libpcap.git
-        tag: libpcap-1.10.1
-        commit: c7642e2cc0c5bd65754685b160d25dc23c76c6bd
+        tag: libpcap-1.10.2
+        commit: c46306b7898229747609636c4bdd48ae2bdbab8a
         x-checker-data:
           type: git
           tag-pattern: ^libpcap-([\d.]+)$
@@ -96,8 +96,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/PCSX2/pcsx2.git
-        tag: v1.7.3821
-        commit: 4831e51cb46c631cb61ac897561eb035be7a06c3
+        tag: v1.7.3829
+        commit: 26d5ee0c9363da206b9cc9e2e77ed7a542ac80e5
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
