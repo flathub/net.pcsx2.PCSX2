@@ -74,13 +74,8 @@ modules:
     builddir: true
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      - -DXDG_STD=ON
       - -DDISABLE_BUILD_DATE=ON
-      - -DDISABLE_PCSX2_WRAPPER=ON
       - -DDISABLE_ADVANCE_SIMD=ON
-      - -DSDL2_API=ON
-      - -DWAYLAND_API=ON
-      - -DQT_BUILD=ON
       - -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
     cleanup:
       - /share/pixmaps
