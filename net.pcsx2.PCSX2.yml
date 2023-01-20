@@ -84,7 +84,7 @@ modules:
     post-install:
       - cp -r bin/pcsx2-qt ../bin/* ${FLATPAK_DEST}/bin
       - rm ${FLATPAK_DEST}/bin/portable.ini
-      - install -Dm644 ../AppIcon128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/net.pcsx2.PCSX2.png
+      - install -Dm644 ../bin/resources/icons/AppIconLarge.png ${FLATPAK_DEST}/share/icons/hicolor/256x256/apps/net.pcsx2.PCSX2.png
       - install -Dm644 ../net.pcsx2.PCSX2.metainfo.xml ${FLATPAK_DEST}/share/metainfo/net.pcsx2.PCSX2.metainfo.xml
       - install -Dm644 ../.github/workflows/scripts/linux/pcsx2-qt.desktop ${FLATPAK_DEST}/share/applications/net.pcsx2.PCSX2.desktop
       - desktop-file-edit --set-key=Icon --set-value=net.pcsx2.PCSX2 ${FLATPAK_DEST}/share/applications/net.pcsx2.PCSX2.desktop
@@ -98,5 +98,3 @@ modules:
           tag-pattern: ^v([\d.]+)$
       - type: file
         path: net.pcsx2.PCSX2.metainfo.xml
-      - type: file
-        path: AppIcon128.png
