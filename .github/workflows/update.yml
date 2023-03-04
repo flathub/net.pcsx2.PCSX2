@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          set-safe-directory: /github/workspace
+
+      - name: Mark repository as safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - uses: docker://ghcr.io/flathub/flatpak-external-data-checker:latest
         env:
           GIT_AUTHOR_NAME: Flatpak External Data Checker
