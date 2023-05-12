@@ -183,11 +183,11 @@
     <release version="1.7.3358" date="2022-10-02"/>
   </releases>
   <screenshots>
-    <screenshot type="default">
-      <image>https://i.imgur.com/peA81HT.png</image>
-      <caption>Main Window</caption>
-    </screenshot>
-  </screenshots>
+    <screenshot type="default"><image>https://user-images.githubusercontent.com/3315070/149651911-0406adae-97f1-412f-858f-14c5726ac487.png</image></screenshot>
+    <screenshot><image>https://user-images.githubusercontent.com/16314399/144776281-b5fafb1b-0325-4a20-853b-8fc48917ef18.png</image></screenshot>
+    <screenshot><image>https://user-images.githubusercontent.com/4414625/158374240-1d35d33d-b9cc-417f-8361-4b46cc15877a.png</image></screenshot>
+    <screenshot><image>https://user-images.githubusercontent.com/24227051/158498599-39fda627-2d89-419d-a17a-c9351d188113.png</image></screenshot>
+    </screenshots>
   <content_rating type="oars-1.1"/>
   <update_contact>tingping_at_tingping.se</update_contact>
 </component>
