@@ -102,15 +102,13 @@ modules:
   - name: pcsx2_patches
     buildsystem: simple
     build-commands:
-      - cd cheats_ni/ && zip -r ../cheats_ni.zip *
-      - cd cheats_ws/ && zip -r ../cheats_ws.zip *
-      - install -Dm644 cheats_ni.zip ${FLATPAK_DEST}/bin/resources/cheats_ni.zip
-      - install -Dm644 cheats_ws.zip ${FLATPAK_DEST}/bin/resources/cheats_ws.zip
+      - cd patches/ && zip -r ../patches.zip *
+      - install -Dm644 patches.zip ${FLATPAK_DEST}/bin/resources/patches.zip
     sources:
       - type: git
         url: https://github.com/PCSX2/pcsx2_patches.git
         tag: latest
-        commit: 509ff207046086ea213037a8c630bbb174ae7d09
+        commit: e8f74d1ce3eaa22e22e015a3198f485c8a56dc4b
         x-checker-data:
           type: git
           tag-pattern: (latest)
