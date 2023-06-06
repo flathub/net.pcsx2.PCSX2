@@ -121,7 +121,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/PCSX2/pcsx2_patches.git
-        commit: d87437a20c552d149635c88a57ce8853ca80d55a
+        tag: latest
+        commit: b9c29a1439a108f16d1114467d01f896c7e138f9
         x-checker-data:
           type: git
           tag-pattern: (latest)
