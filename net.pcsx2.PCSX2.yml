@@ -106,8 +106,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/PCSX2/pcsx2.git
-        tag: v1.7.4596
-        commit: 9acb98a2c8a2683451a54b0ae44d485ab5c630b7
+        tag: v1.7.4603
+        commit: 59b0c09443eacd923a2254f0fd37a78c95823a38
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)$
@@ -122,7 +122,7 @@ modules:
       - type: git
         url: https://github.com/PCSX2/pcsx2_patches.git
         tag: latest
-        commit: c25c2506e9c91ad53db8cb23ca0f44aeaaa8ea37
+        commit: 6576c143068417cb19a70b3f0ceaf02d64991992
         x-checker-data:
           type: git
           tag-pattern: (latest)
